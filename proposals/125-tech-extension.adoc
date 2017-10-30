@@ -406,7 +406,7 @@ public interface SyndesisStepExtension {
 +
 [NOTE]
 ====
-The extension step handler should bind properties to the object if possible, remaining parameters a passed to the configure method as _parameters_
+The extension step handler should bind properties to the object if possible, remaining parameters are passed to the configure method as _parameters_
 ====
 
 
