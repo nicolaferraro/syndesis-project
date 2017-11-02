@@ -112,7 +112,7 @@ An example of complete extension metadata is provided below (it contains propert
          },
          "descriptor": {
              "kind": "endpoint|bean|step",
-             "target" : "direct:${groupId}/${artifactId}/${actionId}"
+             "entrypoint" : "direct:${groupId}/${artifactId}/${actionId}"
          },
          "propertyDefinitionSteps": []
        }
@@ -455,9 +455,9 @@ public @interface SyndesisExtensionAction {
     String outputDataShape() default "any";
 
     /**
-     * The target;
+     * The entrypoint;
      */
-    String target() default "";
+    String entrypoint() default "";
 }
 ----
 
@@ -469,7 +469,7 @@ There should be support for tooling like:
 ----
 "descriptor": {
     "kind": "step",
-    "target" : "full.qualified.class.name"
+    "entrypoint" : "full.qualified.class.name"
 }
 ----
 
@@ -479,7 +479,7 @@ There should be support for tooling like:
 ----
 "descriptor": {
     "kind": "bean",
-    "target" : "full.qualified.class.name"
+    "entrypoint" : "full.qualified.class.name"
 }
 ----
 
@@ -489,7 +489,7 @@ There should be support for tooling like:
 ----
 "descriptor": {
     "kind": "endpoint",
-    "target" : "SyndesisExtensionAction::target()"
+    "entrypoint" : "SyndesisExtensionAction::target()"
 }
 ----
 
