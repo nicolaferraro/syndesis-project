@@ -423,32 +423,32 @@ public @interface SyndesisExtensionAction {
     String value();
 
     /**
-     * The extension id;
+     * The action id;
      */
     String id();
 
     /**
-     * The extension name.
+     * The action name.
      */
     String name() default "";
 
     /**
-     * The extension description.
+     * The action description.
      */
     String description() default "";
 
     /**
-     * The extension tags;
+     * The action tags;
      */
     String[] tags() default {};
 
     /**
-     * The extension tags;
+     * The action input data shape;
      */
     String inputDataShape() default "any";
 
     /**
-     * The extension tags;
+     * The action output data shape;
      */
     String outputDataShape() default "any";
 
