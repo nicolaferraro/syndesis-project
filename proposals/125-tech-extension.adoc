@@ -86,41 +86,38 @@ An example of complete extension metadata is provided below (it contains propert
 [source,json]
 ----
 {
-  "kind": "extension",
   "id": "assigned-by-syndesis-server (must not be hardcoded in packaged extensions)",
-  "data": {
-    "extensionId": "${groupId}:${artifactId}",
-    "version": "${version}",
-    "name": "Extension Name",
-    "status": "draft|installed (must not be hardcoded in packaged extensions)",
-    "description": "Extension Description",
-    "icon": "fa-puzzle-piece",
-    "tags": [],
-    "actions": [
-      {
-        "id": "${actionId}",
-        "name": "Action Name",
-        "actionType" : "extension",
-        "description": "Action Description",
-        "tags": [],
-        "descriptor": {         
-          "kind": "endpoint|bean|step",
-          "entrypoint" : "direct:${groupId}/${artifactId}/${actionId}",
-          "inputDataShape": {
-            "kind" : "any"
-          },
-          "outputDataShape": {
-            "kind" : "any"
-          },
-          "propertyDefinitionSteps": []
-        }
+  "extensionId": "${groupId}:${artifactId}",
+  "version": "${version}",
+  "name": "Extension Name",
+  "status": "Draft|Installed|Deleted (must not be hardcoded in packaged extensions)",
+  "description": "Extension Description",
+  "icon": "fa-puzzle-piece",
+  "tags": [],
+  "actions": [
+    {
+      "id": "${actionId}",
+      "name": "Action Name",
+      "actionType" : "extension",
+      "description": "Action Description",
+      "tags": [],
+      "descriptor": {
+        "kind": "endpoint|bean|step",
+        "entrypoint" : "direct:${groupId}/${artifactId}/${actionId}",
+        "inputDataShape": {
+          "kind" : "any"
+        },
+        "outputDataShape": {
+          "kind" : "any"
+        },
+        "propertyDefinitionSteps": []
       }
-    ],
-    "dependencies": [
-      "mvn:g/a/v",
-      "..."
-    ]
-  }    
+    }
+  ],
+  "dependencies": [
+    "mvn:g/a/v",
+    "..."
+  ]
 }
 ----
 
@@ -255,7 +252,7 @@ We need to use a dedicated beta API version, like v1beta (not yet defined as it 
 
 |DELETE
 |/api/{version}/extensions/{extensionId}
-|To delete a tech extension
+|To logically delete a tech extension (change status to "Deleted")
 
 |GET
 |/api/{version}/extensions/{extensionId}/actions
@@ -266,16 +263,16 @@ We need to use a dedicated beta API version, like v1beta (not yet defined as it 
 |To get a speicific action of a tech extension
 
 |POST
-|/api/{version}/extensions/{extensionId}/verifier
-|Executes a validation of a uploaded extension and returns the validation result
+|/api/{version}/extensions/{extensionId}/validation
+|Executes a validation of a uploaded extension and returns the validation result. Status code indicates if errors are blocking.
 
 |POST
-|/api/{version}/extensions/verifier
-|Accepts a Extension metadata object and validates it, returning the the validation result. It can be used to validate extension metadata without uploading the binary file
+|/api/{version}/extensions/validation
+|Accepts a Extension metadata object and validates it, returning the the validation result. It can be used to validate extension metadata without uploading the binary file. Status code indicates if errors are blocking.
 
 |POST
-|/api/{version}/extensions/{extensionId}/activate
-|Activates the extension if there are no validation errors (validation is performed before installing it)
+|/api/{version}/extensions/{extensionId}/install
+|Installs the extension if there are no blocking validation errors (validation is performed before installing it). Other active extensions for the same extensionId are logically deleted (if any).
 |===
 
 
